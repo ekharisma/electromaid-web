@@ -11,15 +11,16 @@ class Auth:
         self.response = None
         self._token = None
         self.url = None
-        self._data = None
-        self._name = None
-        self._email = None
-        self._password = None
+        self.data = None
+        self.name = None
+        self.email = None
+        self.password = None
 
     def login(self):
         self.url = 'https://elektromaid.herokuapp.com/v1/auth/login'
-        self._data = {'email': self._email, 'password': self._password}
-        response = requests.post(self.url, json=self._data)
+        self.data = {'email': self.email, 'password': self.password}
+        print(self.data)
+        response = requests.post(self.url, json=self.data)
         token = response.json()
         self._token = token.get('token')
         if response.ok:
@@ -29,22 +30,23 @@ class Auth:
 
     def register(self):
         self.url = 'https://elektromaid.herokuapp.com/v1/auth/signup'
-        self._data = {'name': self._name, 'email': self._email, 'password': self._password}
-        self.response = requests.post(self.url, json=self._data)
+        self.data = {'name': self.name, 'email': self.email, 'password': self.password}
+        self.response = requests.post(self.url, json=self.data)
         token = self.response.json()
+        print(token)
         self._token = token.get('token')
 
     def get_email(self):
-        return self._email
+        return self.email
 
     def get_password(self):
-        return self._password
+        return self.password
 
     def set_email(self, email):
-        self._email = email
+        self.email = email
 
     def set_password(self, password):
-        self._password = password
+        self.password = password
 
 
 class Sensor_data:
@@ -109,7 +111,7 @@ class Control_properties(Sensor_data):
 
     def put_data(self):
         print("Call me ?")
-        print(self.data)
+        print(type(self.data))
         devices = self.data[0]
         master_id = devices.get('master_id')
         key_to_delete = ['_id', 'master_id', 'watt_total', 'date']

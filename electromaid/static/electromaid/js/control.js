@@ -25,6 +25,10 @@ $(function () {
         document.getElementById('modal_label').innerHTML = "Create Device"
         document.getElementById('device_name').value = "";
         document.getElementById('device_daya').value = "0";
+        $("#device_status").prop("checked", false);
+        $("#device_active").prop("checked", false);
+        $("#device_status").prop('disabled', true);
+        $("#device_active").prop('disabled', true);
         $("#device_status").val("off");
         $("#device_aktif").val("False");
         $("#statusTxt").html("off");
@@ -114,6 +118,7 @@ $(function () {
 
         }).done(function (data) {
             $("#createBtn").modal('hide');
+            location.reload();
         });
 
         event.preventDefault();
@@ -135,6 +140,7 @@ $(function () {
             data: data_to_sent
         }).done(function(data){
             console.log("Success");
+            location.reload();
         })
      })
 });
