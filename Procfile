@@ -1,1 +1,1 @@
-web: gunicorn electromaid.wsgi
+web: gunicorn backend.wsgi
