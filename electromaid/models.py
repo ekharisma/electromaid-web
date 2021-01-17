@@ -109,7 +109,8 @@ class Control_properties(Sensor_data):
 
     def put_data(self):
         print("Call me ?")
-        devices = self.data
+        print(self.data)
+        devices = self.data[0]
         master_id = devices.get('master_id')
         key_to_delete = ['_id', 'master_id', 'watt_total', 'date']
         for key in key_to_delete:
