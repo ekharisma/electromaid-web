@@ -1,0 +1,13 @@
+{% include 'electromaid/navbar.html' %}
+<div class="container">
+    {% block content %}
+    {% for post in posts %}
+    <h3>{{post.judul}}</h3>
+    <img src="{{post.gambar}}">
+    <p>{{post.penulis}}</p>
+    <p class="lead">{{post.berita}} </p>
+    <hr>
+    {% endfor %}
+    {% endblock %}
+</div>
+{% include 'electromaid/footer.html' %}

@@ -1,0 +1,22 @@
+{% include 'electromaid/navbar.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-md-6">
+            {% load crispy_forms_tags %}
+            {% block content %}
+            <form id="contact-form" method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button id='send-btn' type="submit" class="btn btn-success btn-block mt-3">Send Message</button>
+            </form>
+            {% endblock %}
+            {% load static %}
+        </section>
+        <section class="col-md-6">
+            <img class="img-fluid" src="{% static "electromaid/img/support.svg" %}" width="666" height="444" alt="company-logo">
+            <!-- <button class="btn btn-success btn-block" id='send-btn'>Test Ajax</button> -->
+        </section>
+        
+    </div>
+</div>
+{% include 'electromaid/footer.html' %}

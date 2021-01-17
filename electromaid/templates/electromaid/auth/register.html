@@ -1,0 +1,21 @@
+{% include 'electromaid/navbar.html' %}
+<div class="container-fluid">
+    <h3 class="display">Join Our Family in Electromaid</h3>
+    <p class="lead">Fill registration form below</p>
+    <div class="row">
+        <section class="col-md-6 mt-3">
+            {% load crispy_forms_tags %}
+            {% block content %}
+<!--            {% csrf_token %}-->
+            {% load crispy_forms_tags %}
+            {% crispy form %}
+            {% endblock %}
+        </section>
+        <section class="col-md">
+            {% load static %}
+            <center><img class="img-fluid" src="{% static "electromaid/img/bottom.png" %}" width="500" height="500"
+                alt="company-logo"></center>
+        </section>
+    </div>
+</div>
+{% include 'electromaid/footer.html' %}

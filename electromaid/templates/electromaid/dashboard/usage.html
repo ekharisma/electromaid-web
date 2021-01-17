@@ -1,0 +1,105 @@
+{% include "electromaid/dashboard/dashboard.html" %}
+{% block content %}
+<div class="container">
+  <h3 class="display-3">Electricity Usage</h3>
+  <p class="lead">Keep in mind to preserve energy</p>
+  <p>Total Usage : {{watt}} Wh</p>
+  <p>Payment : Rp. {{payment}}</p>
+  {% load bootstrap4 %} {# import bootstrap4/bootstrap3 #}
+  {% bootstrap_css %} {# Embed Bootstrap CSS #}
+  {% bootstrap_javascript jquery='full' %} {# Embed Bootstrap JS+jQuery #}
+  {{ date_picker.media }} {# Adds date-picker required JS and CSS #}
+
+  <form class="w-50" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form date_picker %}
+    {% endblock %}
+  </form>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card text-center shadow-lg bg-white rounded">
+        <div class="card-header">
+          ID : {{id}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Device ID : {{master_id}}</h5>
+          {% load static %}
+          <img class="card-img-top" src="{% static "electromaid/img/electric_asset.svg" %}" width="32" height="32">
+          <p class="card-text">{{device_count}} device monitored</p>
+          <div class="btn-group" role="group" aria-label="controlBtn">
+            <a href="{% url 'control' %}" class="btn btn-success">Control This Device</a>
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#usagePieChart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pie-chart"
+                viewBox="0 0 16 16">
+                <path
+                  d="M7.5 1.018a7 7 0 0 0-4.79 11.566L7.5 7.793V1.018zm1 0V7.5h6.482A7.001 7.001 0 0 0 8.5 1.018zM14.982 8.5H8.207l-4.79 4.79A7 7 0 0 0 14.982 8.5zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+              </svg></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          Total consumption : "{{watt}}" watt
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'electromaid/footer.html' %}
+
+<!-- Modal -->
+<div class="modal fade" id="usagePieChart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Usage Graph</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id='canvas-holder' class="modal-body">
+        <canvas id='chart-area'></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var randomScalingFactor = function () {
+    return Math.round(Math.random() * 100);
+  };
+
+  var config = {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [
+          {% for alat in devices %}
+          "{{alat.daya}}",
+          {% endfor %}
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 1.0)',
+          'rgba(54, 162, 235, 1.0)',
+          'rgba(255, 206, 86, 1.0)',
+          'rgba(75, 192, 192, 1.0)',
+          'rgba(153, 102, 255, 1.0)',
+          'rgba(255, 159, 64, 1.0)',
+          'rgba(10, 159, 64, 1.0)'
+        ],
+        label: 'Dataset 1'
+      }],
+      labels: [
+      {% for alat in devices %}
+          "{{alat.id}}",
+          {% endfor %}
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  var ctx = document.getElementById('chart-area').getContext('2d');
+  window.myPie = new Chart(ctx, config);
+</script>

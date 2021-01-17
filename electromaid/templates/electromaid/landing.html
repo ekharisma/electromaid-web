@@ -1,0 +1,51 @@
+{% include 'electromaid/navbar.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md align-self-center">
+            <h1>Manage Your Electricity</h1>
+            <p class="lead">Manage Your Device, Monitor Your Bill</p>
+            <p class="lead">Safe.Simple.Free</p>
+            <a class="btn btn-success">Learn More</a>
+        </div>
+        <div class="col-md">
+            {% load static %}
+            <img class="img-fluid" src="{% static "electromaid/img/gambarAwal.png" %}" width="680" height="680"
+                alt="company-logo">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            {% load static %}
+            <img class="img-fluid" src="{% static "electromaid/img/data-vis.svg" %}" width="560" height="560"
+                alt="company-logo">
+        </div>
+        <div class="col-md align-self-center">
+            <h1>Visualize Your Data</h1>
+            <p class="lead">Human love to see visualized data, we too! In electromaid, we visualized your data to make
+                it easier for your to grasp information. You can download it too for your convenient</p>
+            <a class="btn btn-outline-success">Learn More</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md align-self-center">
+            <h1>Control Your Devices</h1>
+            <p class="lead">Control your device as easy as tap in smartphone. Electromaid give you whole power to your
+                electric device</p>
+            <a class="btn btn-outline-success">Learn More</a>
+        </div>
+        <div class="col-md">
+            <img class="img-fluid" src="{% static "electromaid/img/control-vis.svg" %}" width="560" height="560"
+                alt="company-logo">
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+        <img class="img-fluid " src="{% static "electromaid/img/bottom.png" %}" width="538" height="108">
+    </div>
+    <p class="lead text-center">Give contribution in fight against global warming and climate change. But first, we
+        should learn how to conserve energy well. Learn more in our blog</p>
+    <center><a class="btn btn-outline-success btn-lg btn-block w-50">Blog</a></center>
+</div>
+{% include 'electromaid/footer.html' %}
