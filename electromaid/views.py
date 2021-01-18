@@ -123,6 +123,7 @@ class Register_view(View):
 
 class Usage(View):
     properties = Usage_properties()
+    watt = 0
 
     def get(self, request):
         if 'email' in request.session:
@@ -131,21 +132,25 @@ class Usage(View):
             id = self.properties.get_id()
             master_id = self.properties.get_master_id()
             device = self.properties.get_device_by_id()
-            watt = 0
             for dev in device:
-                watt += float(dev.get('daya'))
-            payment = float(watt) * 1447 / 1000
+                self.watt += round(float(dev.get('daya')), 2)
+            payment = self.payment()
+            print(self.watt)
             return render(
                 request, "electromaid/dashboard/usage.html", {
                     'id': id,
                     'master_id': master_id,
-                    'watt': watt,
+                    'watt': self.watt,
                     'payment': payment,
                     'devices': device,
                     'date_picker': date
                 })
         else:
             return HttpResponseRedirect('/electromaid/')
+
+    def payment(self):
+        print(round(self.watt * 1447 / 1000))
+        return round(self.watt * 1447 / 1000)
 
 
 class Control_view(View):

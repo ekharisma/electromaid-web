@@ -5,7 +5,7 @@
     <h3>{{post.judul}}</h3>
     <img src="{{post.gambar}}">
     <p>{{post.penulis}}</p>
-    <p class="lead">{{post.berita}} </p>
+    <p class="lead">{{post.berita|truncatewords:10}}<a href="{{post.url}}">more ...</a> </p>
     <hr>
     {% endfor %}
     {% endblock %}
