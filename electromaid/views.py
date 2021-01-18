@@ -19,7 +19,11 @@ def blog(request):
         oid_list.append(post[i].get('_id').get('$oid'))
 
     print(oid_list)
-    return render(request, 'electromaid/blog.html', {'posts': post, 'oid': oid_list})
+    return render(request, 'electromaid/blog.html', {
+        'posts': post,
+        'oid': oid_list
+    })
+
 
 # def blog_id(request, id):
 #     post = blog_request()
@@ -48,7 +52,15 @@ class Contact(View):
         if form.is_valid():
             print("Form valid")
             self.get_params()
-            return HttpResponseRedirect('')
+            render(request, 'electromaid/contact.html', {
+                'form': self.form,
+                'status': 'success'
+            })
+        else:
+            render(request, 'electromaid/contact.html', {
+                'form': self.form,
+                'status': 'failed'
+            })
 
     def get_params(self):
         params = self.request.POST
@@ -121,8 +133,8 @@ class Usage(View):
             device = self.properties.get_device_by_id()
             watt = 0
             for dev in device:
-                watt += int(dev.get('daya'))
-            payment = int(watt) * 1447 / 1000
+                watt += float(dev.get('daya'))
+            payment = float(watt) * 1447 / 1000
             return render(
                 request, "electromaid/dashboard/usage.html", {
                     'id': id,
@@ -159,8 +171,9 @@ class Control_view(View):
             self.properties.get_from_data(data)
             self.response = self.properties.put_data()
         if self.response:
+            response = 'success'
             return render(request, "electromaid/dashboard/control.html",
-                          {'devices': self.properties.get_device()})
+                          {'devices': self.properties.get_device(), 'response': response})
         else:
             return JsonResponse({'response': 'failed'})
 
