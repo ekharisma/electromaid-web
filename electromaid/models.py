@@ -160,8 +160,6 @@ class Control_properties(Sensor_data):
         client.on_message = self.on_message
         client.connect(broker)
         client.loop_start()
-        print("subscribing ")
-        client.subscribe(url)  # subscribe
         time.sleep(2)
         print("Publishing")
         client.publish(url, status)

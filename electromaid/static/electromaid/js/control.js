@@ -30,9 +30,9 @@ $(function () {
         $("#device_status").prop('disabled', true);
         $("#device_active").prop('disabled', true);
         $("#device_status").val("off");
-        $("#device_aktif").val("False");
+        $("#device_aktif").val("false");
         $("#statusTxt").html("off");
-        $("#activeTxt").html("False");
+        $("#activeTxt").html("false");
     });
 
     $('.update_modal').on('click', function () {
