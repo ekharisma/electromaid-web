@@ -36,6 +36,8 @@ $(function () {
     });
 
     $('.update_modal').on('click', function () {
+        $("#device_status").prop('disabled', false);
+        $("#device_active").prop('disabled', false);
         document.getElementById('modal_label').innerHTML = "Change Device";
         var device_data = $(this).attr("data-id");
         console.log(device_data);
