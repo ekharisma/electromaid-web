@@ -142,6 +142,7 @@ $(function () {
             data: data_to_sent
         }).done(function(data){
             console.log("Success");
+            $("#delete_modal").modal('hide');
             location.reload();
         })
      })
