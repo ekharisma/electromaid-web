@@ -108,8 +108,8 @@ $(function () {
             'csrfmiddlewaretoken': csrftoken,
             'id': dev_id,
             'daya': dev_daya,
-            'status': dev_status,
-            'aktif': dev_active
+            'status': 'off',
+            'aktif': 'False'
         }
         $.ajax({
             type: 'POST',
